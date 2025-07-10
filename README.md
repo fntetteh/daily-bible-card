@@ -106,15 +106,11 @@ Distributed under the [MIT License](LICENSE). See `LICENSE` for more information
 
 ---
 
-## 📞 Contact
-
-[Felix Nuetey Tetteh](tettehfelixnuetey@gmail.com) 
-
 Project Link: [https://github.com/fntetteh/daily-bible-card](https://github.com/fntetteh/daily-bible-card)
 
 ---
-
+    
 ## 🙏 Acknowledgements
 
 * Inspired by personal interest in spiritual reflection and modern web design.
-* Utilizes the [Best-README-Template](https://github.com/othneildrew/Best-README-Template) by othneildrew for README structure guidance.
+* Utilizes the [Best-README-Template](https://github.com/othneildrew/Best-README-Template) by othneildrew for README structure.
