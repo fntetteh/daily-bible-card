@@ -1,5 +1,6 @@
+
 :root { /* Default (Light/Morning) Theme Variables */
-    --bg-gradient-start: #6a11cb; /* Deep purple */
+    --bg-gradient-start: #6a11cb; /* Deeper purple */
     --bg-gradient-end: #2575fc;   /* Bright blue */
     --card-bg-color: rgba(255, 255, 255, 0.15); /* Frosted glass effect */
     --text-color: #fff;
@@ -7,13 +8,13 @@
     --verse-text-color: #fff;
     --reference-color: rgba(255, 255, 255, 0.9);
     --button-bg: #fff;
-    --button-text-color: #6a11cb;
+    --button-text-color: #6a11cb; /* Specific color from accent-color-1 */
     --button-shadow-color: rgba(0, 0, 0, 0.2);
     --card-border-color: rgba(255, 255, 255, 0.3);
     --card-shadow-color: rgba(0, 0, 0, 0.3);
     --flip-indicator-color: rgba(255, 255, 255, 0.7);
 
-
+    /* ---  Google Fonts and generic fallbacks --- */
     --font-heading: 'Lato', sans-serif;
     --font-body: 'Lato', sans-serif;
     --font-verse: 'Playfair Display', serif;
@@ -22,7 +23,7 @@
 /* --- Dark Theme Overrides --- */
 body.dark-theme {
     --bg-gradient-start: #0f0c29; /* Darker blue */
-    --bg-gradient-end: #3a3a5e;   /* Darker purple */
+    --bg-gradient-end: #3a3a5e;   /* Darker purple/blue */
     --card-bg-color: rgba(0, 0, 0, 0.3); /* Darker frosted glass */
     --text-color: #f0f0f0; /* Lighter text for dark background */
     --prelude-color: rgba(240, 240, 240, 0.6);
@@ -37,7 +38,7 @@ body.dark-theme {
 }
 
 
-/* --- Body Styling --- */
+/* ---  Body Styling --- */
 body {
     margin: 0;
     font-family: var(--font-body), sans-serif;
@@ -45,12 +46,11 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    /* Uses dynamic variables for background */
     background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     color: var(--text-color);
     overflow: hidden;
-    perspective: 1000px;
-    transition: background 1s ease-in-out, color 1s ease-in-out; /* Smooth transition for color changes too */
+    perspective: 1000px; /*  for 3D flip effect */
+    transition: background 1s ease-in-out, color 1s ease-in-out;
 }
 
 /* --- Background Elements Container (for future animations) --- */
@@ -61,13 +61,12 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    /* Filter to adjust brightness for dynamic theme */
     filter: brightness(1);
-    transition: filter 1s ease-in-out; /* Smooth transition for brightness */
+    transition: filter 1s ease-in-out;
 }
 
 body.dark-theme .background-elements {
-    filter: brightness(0.8); /* Slightly dim the background image for dark mode */
+    filter: brightness(0.8);
 }
 
 
@@ -83,20 +82,18 @@ body.dark-theme .background-elements {
 
 /* --- Card Wrapper (for the flip effect) --- */
 .card-wrapper {
-    width: clamp(300px, 90vw, 500px);
-    height: 350px;
+    width: clamp(300px, 90vw, 550px); /* TWEAKED: Increased max width from 500px to 550px */
+    height: 380px; /* TWEAKED: Increased height from 350px to 380px */
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.8s ease-in-out;
-    box-shadow: 0 15px 40px var(--card-shadow-color); /* dynamic shadow color */
+    box-shadow: 0 15px 40px var(--card-shadow-color);
     border-radius: 15px;
-
     opacity: 0;
     transform: translateY(30px) scale(0.95);
     animation: cardInitialLoad 1.2s forwards ease-out 0.3s;
 }
 
-/* Initial card load animation */
 @keyframes cardInitialLoad {
     from {
         opacity: 0;
@@ -116,34 +113,30 @@ body.dark-theme .background-elements {
     height: 100%;
     backface-visibility: hidden;
     border-radius: 15px;
-    padding: 40px;
+    padding: 30px; /* TWEAKED: Reduced padding from 40px to 30px for more text room */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* Glass-morphism effect using dynamic variables */
     background: var(--card-bg-color);
     backdrop-filter: blur(20px);
-    border: 1px solid var(--card-border-color); /* Using dynamic border color */
+    border: 1px solid var(--card-border-color);
     overflow: hidden;
-    transition: background 0.8s ease-in-out, border-color 0.8s ease-in-out; /* Smooth transitions for card elements */
+    transition: background 0.8s ease-in-out, border-color 0.8s ease-in-out;
 }
 
-/* --- Front of the card style --- */
 .bible-card.front {
     transform: rotateY(0deg);
     z-index: 2;
 }
 
-/* --- Back of the card style --- */
 .bible-card.back {
     transform: rotateY(180deg);
     z-index: 1;
 }
 
-/* --- Flip effect when card-wrapper has 'flipped' class (added by JS) --- */
 .card-wrapper.flipped .bible-card.front {
     transform: rotateY(-180deg);
 }
@@ -152,7 +145,7 @@ body.dark-theme .background-elements {
     transform: rotateY(0deg);
 }
 
-/* --- Text Elements using dynamic text colors --- */
+/* --- Text Elements  --- */
 .prelude-text {
     font-size: 1.2em;
     opacity: 0.7;
@@ -164,28 +157,34 @@ body.dark-theme .background-elements {
 
 .verse-text {
     font-family: var(--font-verse), serif;
-    font-size: clamp(1.4em, 4vw, 2.2em);
-    line-height: 1.5;
+    font-size: clamp(1.2em, 4.5vw, 2.3em);
+    line-height: 1.6;
     margin-bottom: 25px;
     font-weight: 500;
     color: var(--verse-text-color);
-    transition: color 1s ease-in-out;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.verse-text span {
+    color: inherit;
+    display: inline-block;
 }
 
 .verse-reference {
     font-family: var(--font-heading), sans-serif;
     font-size: clamp(1em, 3vw, 1.4em);
     font-weight: bold;
-    opacity: 0.9;
+    opacity: 0;
     letter-spacing: 0.5px;
     color: var(--reference-color);
-    transition: color 1s ease-in-out;
+    transition: opacity 0.8s ease-out 0.5s, color 1s ease-in-out;
 }
 
 /* --- Flip Indicator (Tap for Reference/Verse) --- */
 .flip-indicator {
     position: absolute;
-    bottom: 20px;
+    bottom: 25px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.9em;
@@ -193,7 +192,7 @@ body.dark-theme .background-elements {
     display: flex;
     align-items: center;
     gap: 5px;
-    transition: opacity 0.3s ease, color 1s ease-in-out; /* Adding color transition */
+    transition: opacity 0.3s ease, color 1s ease-in-out;
     color: var(--flip-indicator-color);
 }
 
@@ -207,7 +206,7 @@ body.dark-theme .background-elements {
 }
 
 
-/* --- Action Button Styling using dynamic colors and shadows --- */
+/* --- Action Button Styling --- */
 .action-btn {
     background-color: var(--button-bg);
     color: var(--button-text-color);
@@ -220,26 +219,103 @@ body.dark-theme .background-elements {
     box-shadow: 0 8px 20px var(--button-shadow-color);
     font-weight: bold;
     letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .action-btn:hover {
-    background-color: #e0e0e0; /* This hover needs to be carefully chosen for dark mode */
+    background-color: #e0e0e0;
     transform: translateY(-3px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
 }
-/* Specific hover for dark mode button */
+
 body.dark-theme .action-btn:hover {
-    background-color: #6a6a90; /* Slightly lighter dark button */
+    background-color: #6a6a90;
     color: #fff;
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
 }
 
 .action-btn:active {
     transform: translateY(0);
-    box-shadow: 0 44px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* --- Responsive Adjustments --- */
+.action-btn.clicked {
+    animation: buttonPulse 0.3s ease-out forwards;
+}
+
+@keyframes buttonPulse {
+    0% { transform: scale(1); box-shadow: 0 8px 20px var(--button-shadow-color); }
+    50% { transform: scale(1.02); box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 8px 20px var(--button-shadow-color); }
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+    z-index: -1;
+}
+
+.action-btn:hover::before {
+    width: 150%;
+    height: 150%;
+    opacity: 1;
+}
+
+.action-btn.clicked::before {
+    width: 150%;
+    height: 150%;
+    opacity: 1;
+    transition: none;
+}
+
+/* --- Background Elements Container (for future animations) --- */
+/* Particle effect for background */
+.background-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-elements::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.3)"/></svg>') repeat;
+    background-size: 20px 20px;
+    animation: moveParticles 60s linear infinite;
+    opacity: 0.5;
+}
+
+body.dark-theme .background-elements::before {
+    background: url('data:image/svg+xml;charset=UTF-8,<svg width="10" height="10" viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><circle cx="5" cy="5" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    opacity: 0.3;
+}
+
+@keyframes moveParticles {
+    0% { background-position: 0 0; }
+    100% { background-position: 100vw 100vh; }
+}
+
+
+/* --- Responsive Design --- */
 @media (max-width: 768px) {
     .main-content-wrapper {
         gap: 20px;
