@@ -1,0 +1,270 @@
+:root { /* Default (Light/Morning) Theme Variables */
+    --bg-gradient-start: #6a11cb; /* Deep purple */
+    --bg-gradient-end: #2575fc;   /* Bright blue */
+    --card-bg-color: rgba(255, 255, 255, 0.15); /* Frosted glass effect */
+    --text-color: #fff;
+    --prelude-color: rgba(255, 255, 255, 0.7);
+    --verse-text-color: #fff;
+    --reference-color: rgba(255, 255, 255, 0.9);
+    --button-bg: #fff;
+    --button-text-color: #6a11cb;
+    --button-shadow-color: rgba(0, 0, 0, 0.2);
+    --card-border-color: rgba(255, 255, 255, 0.3);
+    --card-shadow-color: rgba(0, 0, 0, 0.3);
+    --flip-indicator-color: rgba(255, 255, 255, 0.7);
+
+
+    --font-heading: 'Lato', sans-serif;
+    --font-body: 'Lato', sans-serif;
+    --font-verse: 'Playfair Display', serif;
+}
+
+/* --- Dark Theme Overrides --- */
+body.dark-theme {
+    --bg-gradient-start: #0f0c29; /* Darker blue */
+    --bg-gradient-end: #3a3a5e;   /* Darker purple */
+    --card-bg-color: rgba(0, 0, 0, 0.3); /* Darker frosted glass */
+    --text-color: #f0f0f0; /* Lighter text for dark background */
+    --prelude-color: rgba(240, 240, 240, 0.6);
+    --verse-text-color: #e0e0e0;
+    --reference-color: rgba(240, 240, 240, 0.8);
+    --button-bg: #4a4a70; /* Darker button */
+    --button-text-color: #e0e0e0; /* Lighter text for dark button */
+    --button-shadow-color: rgba(0, 0, 0, 0.5);
+    --card-border-color: rgba(255, 255, 255, 0.1);
+    --card-shadow-color: rgba(0, 0, 0, 0.5);
+    --flip-indicator-color: rgba(240, 240, 240, 0.6);
+}
+
+
+/* --- Body Styling --- */
+body {
+    margin: 0;
+    font-family: var(--font-body);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Uses dynamic variables for background */
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    color: var(--text-color);
+    overflow: hidden;
+    perspective: 1000px;
+    transition: background 1s ease-in-out, color 1s ease-in-out; /* Smooth transition for color changes too */
+}
+
+/* --- Background Elements Container (for future animations) --- */
+.background-elements {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* Filter to adjust brightness for dynamic theme */
+    filter: brightness(1);
+    transition: filter 1s ease-in-out; /* Smooth transition for brightness */
+}
+
+body.dark-theme .background-elements {
+    filter: brightness(0.8); /* Slightly dim the background image for dark mode */
+}
+
+
+/* --- Main Content Wrapper --- */
+.main-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* --- Card Wrapper (for the flip effect) --- */
+.card-wrapper {
+    width: clamp(300px, 90vw, 500px);
+    height: 350px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s ease-in-out;
+    box-shadow: 0 15px 40px var(--card-shadow-color); /* dynamic shadow color */
+    border-radius: 15px;
+
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+    animation: cardInitialLoad 1.2s forwards ease-out 0.3s;
+}
+
+/* Initial card load animation */
+@keyframes cardInitialLoad {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* --- Bible Card Base Styling (both front and back) --- */
+.bible-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* Glassmorphism effect using dynamic variables */
+    background: var(--card-bg-color);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border-color); /* Using dynamic border color */
+    overflow: hidden;
+    transition: background 0.8s ease-in-out, border-color 0.8s ease-in-out; /* Smooth transitions for card elements */
+}
+
+/* --- Front of the card style --- */
+.bible-card.front {
+    transform: rotateY(0deg);
+    z-index: 2;
+}
+
+/* --- Back of the card style --- */
+.bible-card.back {
+    transform: rotateY(180deg);
+    z-index: 1;
+}
+
+/* --- Flip effect when card-wrapper has 'flipped' class (added by JS) --- */
+.card-wrapper.flipped .bible-card.front {
+    transform: rotateY(-180deg);
+}
+
+.card-wrapper.flipped .bible-card.back {
+    transform: rotateY(0deg);
+}
+
+/* --- Text Elements using dynamic text colors --- */
+.prelude-text {
+    font-size: 1.2em;
+    opacity: 0.7;
+    margin-bottom: 15px;
+    font-family: var(--font-heading);
+    color: var(--prelude-color);
+    transition: color 1s ease-in-out;
+}
+
+.verse-text {
+    font-family: var(--font-verse);
+    font-size: clamp(1.4em, 4vw, 2.2em);
+    line-height: 1.5;
+    margin-bottom: 25px;
+    font-weight: 500;
+    color: var(--verse-text-color);
+    transition: color 1s ease-in-out;
+}
+
+.verse-reference {
+    font-family: var(--font-heading);
+    font-size: clamp(1em, 3vw, 1.4em);
+    font-weight: bold;
+    opacity: 0.9;
+    letter-spacing: 0.5px;
+    color: var(--reference-color);
+    transition: color 1s ease-in-out;
+}
+
+/* --- Flip Indicator (Tap for Reference/Verse) --- */
+.flip-indicator {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9em;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: opacity 0.3s ease, color 1s ease-in-out; /* Adding color transition */
+    color: var(--flip-indicator-color);
+}
+
+.flip-indicator:hover {
+    opacity: 1;
+}
+
+.flip-indicator .arrow {
+    font-size: 1.2em;
+    line-height: 1;
+}
+
+
+/* --- Action Button Styling using dynamic colors and shadows --- */
+.action-btn {
+    background-color: var(--button-bg);
+    color: var(--button-text-color);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, color 0.3s ease;
+    box-shadow: 0 8px 20px var(--button-shadow-color);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+.action-btn:hover {
+    background-color: #e0e0e0; /* This hover needs to be carefully chosen for dark mode */
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
+}
+/* Specific hover for dark mode button */
+body.dark-theme .action-btn:hover {
+    background-color: #6a6a90; /* Slightly lighter dark button */
+    color: #fff;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 44px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .main-content-wrapper {
+        gap: 20px;
+    }
+
+    .bible-card {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-content-wrapper {
+        padding: 15px;
+    }
+
+    .bible-card {
+        padding: 25px;
+    }
+
+    .prelude-text {
+        font-size: 1em;
+    }
+
+    .flip-indicator {
+        font-size: 0.8em;
+        bottom: 15px;
+    }
+}

@@ -2,9 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Divine Inspiration</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="background-elements">
+</div>
 
+<div class="main-content-wrapper">
+    <div class="card-wrapper">
+        <div class="bible-card front">
+            <p class="prelude-text">God's Word for you Today:</p>
+            <p class="verse-text" id="verseText">
+                "The steadfast love of the Lord never ceases; his mercies never come to an end; they are new every morning; great is your faithfulness."
+            </p>
+            <div class="flip-indicator">Tap for Reference <span class="arrow">&#8635;</span></div>
+        </div>
+
+        <div class="bible-card back">
+            <p class="verse-reference" id="verseReference">
+                Lamentations 3:22-23
+            </p>
+            <div class="flip-indicator">Tap for Verse <span class="arrow">&#8634;</span></div>
+        </div>
+    </div>
+
+    <button id="new-card-btn" class="action-btn">New Inspiration</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
