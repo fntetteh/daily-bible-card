@@ -40,7 +40,7 @@ body.dark-theme {
 /* --- Body Styling --- */
 body {
     margin: 0;
-    font-family: var(--font-body);
+    font-family: var(--font-body), sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,7 +123,7 @@ body.dark-theme .background-elements {
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* Glassmorphism effect using dynamic variables */
+    /* Glass-morphism effect using dynamic variables */
     background: var(--card-bg-color);
     backdrop-filter: blur(20px);
     border: 1px solid var(--card-border-color); /* Using dynamic border color */
@@ -157,13 +157,13 @@ body.dark-theme .background-elements {
     font-size: 1.2em;
     opacity: 0.7;
     margin-bottom: 15px;
-    font-family: var(--font-heading);
+    font-family: var(--font-heading), sans-serif;
     color: var(--prelude-color);
     transition: color 1s ease-in-out;
 }
 
 .verse-text {
-    font-family: var(--font-verse);
+    font-family: var(--font-verse), serif;
     font-size: clamp(1.4em, 4vw, 2.2em);
     line-height: 1.5;
     margin-bottom: 25px;
@@ -173,7 +173,7 @@ body.dark-theme .background-elements {
 }
 
 .verse-reference {
-    font-family: var(--font-heading);
+    font-family: var(--font-heading), sans-serif;
     font-size: clamp(1em, 3vw, 1.4em);
     font-weight: bold;
     opacity: 0.9;
